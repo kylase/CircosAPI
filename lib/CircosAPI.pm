@@ -1,30 +1,16 @@
 package CircosAPI;
 use Moose;
 use Moose::Util::TypeConstraints;
-use lib::CircosAPI::CObject
 
-has karyotype => (is => 'rw', isa => enum([ qw(hg18 hg19 mm9 mm8)] ), required => 1);
+use lib::CircosAPI::CObject;
 
-has ideogram => (is => 'rw', isa => 'Ideogram');
-has image => (is => 'rw', isa => 'Image', builder => '_build_image');
-has color => (is => 'rw', isa => 'Color');
-has housekeeping => (is => 'rw', isa => 'Housekeeping');
-has plots => (is => 'rw', isa => 'Array');
-has highlights => (is => 'rw', isa => 'Array');
-
-sub _build_image {
-  my $self = shift;
-
-  return Image->new();
-}
-
-sub init {
-  my $self = shift;
-
-  while (my $param = shift) {
-    print $param
-  }
-}
+has base => (is => 'rw', isa => 'Base', init_arg => '-base');
+has ideogram => (is => 'rw', isa => 'Ideogram', init_arg => '-ideogram');
+has image => (is => 'rw', isa => 'Image', init_arg => '-image');
+has color => (is => 'rw', isa => 'Str', default => '<<include etc/colors_fonts_pattern.conf>>');
+has housekeeping => (is => 'rw', isa => 'Str', default => '<<include etc/housekeeping.conf>>');
+has plots => (is => 'rw', isa => 'ArrayRef');
+has highlights => (is => 'rw', isa => 'ArrayRef');
 
 sub define {
   my $self = shift;
@@ -35,5 +21,14 @@ sub define {
   }
 }
 
+sub getConfig {
+  my $self = shift;
 
+  my @attributes = $self->meta->get_attribute_list;
+
+  foreach ( @attributes ) {
+    my $content = $self->{$_};
+    
+  }
+}
 1;
