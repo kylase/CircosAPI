@@ -4,6 +4,8 @@ use Moose::Util::TypeConstraints;
 
 use lib::CircosAPI::CObject;
 
+extends 'CObject';
+
 has base => (is => 'rw', isa => 'Base', init_arg => '-base');
 has ideogram => (is => 'rw', isa => 'Ideogram', init_arg => '-ideogram');
 has image => (is => 'rw', isa => 'Image', init_arg => '-image');
@@ -27,8 +29,7 @@ sub getConfig {
   my @attributes = $self->meta->get_attribute_list;
 
   foreach ( @attributes ) {
-    my $content = $self->{$_};
-    
+    print $self->{$_}->getAttributesAsBlock ;
   }
 }
 1;

@@ -2,7 +2,7 @@ package CObject;
 {
   use Moose;
   use Moose::Util qw/find_meta get_all_attribute_values/;
-  
+  use List::Util qw(min);
   use namespace::autoclean;
 
   sub getContentAsHashRef {
@@ -18,7 +18,17 @@ package CObject;
     my $string = "";
 
     while ( my ($k, $v) = each %$hash ) {
-      $string = $string . "$k = $v\n" if defined $v and ref $v ne 'ArrayRef';
+      if ( ref $v eq 'ARRAY' ) {
+        foreach (@$v) {
+          $string .= $_->getAttributesAsBlock;
+        }
+      } else {
+        if ( ref $v eq "" ) {
+          $string .= "$k = $v\n" if ( defined($v) && min(map { $_ eq $k ? 0 : 1 } qw[id pair1 pair2]) );
+        } else {
+          $string .= $v->getAttributesAsBlock;
+        }     
+      }
     }
 
     return $string; 
@@ -33,9 +43,17 @@ package CObject;
 
     my $string = "";
 
-    $string = $string . "<$class_name>\n" if $class_name ne "base";
-    $string = $string . $self->getAttributesAsString;
-    $string = $string . "</$class_name>\n" if $class_name ne "base";
+    if ($class_name eq 'pairwise') {
+      $string .= "<$class_name $self->{pair1},$self->{pair2}" if defined $self->{pair2};
+      $string .= "<$class_name $self->{pair1}" if !(defined $self->{pair2});
+    } elsif ( $class_name eq 'breakstyle' ) {
+      $string .= "\n<$class_name $self->{id}>\n" if $class_name ne "base";
+    } else {
+      $string .= "\n<$class_name>\n" if $class_name ne "base";
+    }
+
+    $string .= $self->getAttributesAsString;
+    $string .= "</$class_name>\n" if $class_name ne "base";
 
     return $string; 
   }
@@ -141,18 +159,6 @@ package Ideogram;
 
   has 'spacing' => ( is => 'rw', isa => 'Spacing', init_arg => '-spacing' );
   has 'break_style' => ( is => 'rw', isa => 'ArrayRef', init_arg => '-break_style' );
-
-  sub getBreakStyleBlocks {
-    my $self = shift;
-    my $a = $self->{break_style};
-    my $count = 1;
-    foreach (@$a) {
-      print "<break_style $count>";
-      print $_->getAttributesAsString;
-      print "</break_style>";
-      $count++;
-    }
-  }
 }
 
 package Pairwise;
@@ -176,19 +182,8 @@ package Spacing;
   use Moose::Util::TypeConstraints;
 
   has 'pairwises' => ( is => 'rw', isa => 'ArrayRef' );
-  has 'default' => ( is => 'rw', isa => 'Str' );
+  has 'default' => ( is => 'rw', isa => 'Str', init_arg => '-default' );
   has 'break' => ( is => 'rw', isa => 'Str' );
-
-  sub getPairwiseBlocks {
-    my $self = shift;
-    my $a = $self->{pairwises};
-
-    foreach (@$a) {
-      print "<pairwise $_->{pair1} $_->{pair2}>\n";
-      print $_->getAttributesAsString;
-      print "</pairwise>\n";
-    }
-  }
 }
 
 package BreakStyle;
@@ -198,6 +193,7 @@ package BreakStyle;
 
   use Moose::Util::TypeConstraints;
 
+  has 'id' => ( is => 'rw', isa => 'Int', init_arg => '-id', required => 1 );
   has 'stroke_color' => ( is => 'rw', isa => 'Str', init_arg => '-stroke_color' );
   has 'stroke_thickness' => ( is => 'rw', isa => 'Str', init_arg => '-stroke_thickness' );
   has 'thickness' => ( is => 'rw', isa => 'Str', init_arg => '-thickness' ); 
@@ -302,7 +298,7 @@ package Rule;
     my $string = "";
 
     while ( my ( $k, $v ) = each %$hash ) {
-      $string = $string . "$k = $v\n";
+      $string .= "$k = $v\n";
     }
 
     return $string;
