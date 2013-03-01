@@ -132,8 +132,8 @@ package Ideogram;
   has 'thickness' => ( is => 'rw', isa => 'Str', init_arg => '-thickness', required => 1 );
   has 'fill' => ( is => 'rw', isa => 'Str', init_arg => '-fill', required => 1, default => "yes" );
 
-  has 'stroke_color' => ( is => 'rw', isa => 'Str' );
-  has 'stroke_thickness' => ( is => 'rw', isa => 'Str' );
+  has 'stroke_color' => ( is => 'rw', isa => 'Str', init_arg => '-stroke_color' );
+  has 'stroke_thickness' => ( is => 'rw', isa => 'Str', init_arg => '-stroke_thickness' );
   
   # Cytogenetic Bands
   has 'show_bands' => ( is => 'rw', isa => enum([qw[ yes no ]]) );
@@ -168,9 +168,9 @@ package Pairwise;
 
   use Moose::Util::TypeConstraints;
 
-  has 'pair1' => ( is => 'rw', isa => 'Str' );
-  has 'pair2' => ( is => 'rw', isa => 'Str' );
-  has 'spacing' => ( is => 'rw', isa => 'Str');
+  has 'pair1' => ( is => 'rw', isa => 'Str', init_arg => '-pair1' );
+  has 'pair2' => ( is => 'rw', isa => 'Str', init_arg => '-pair2' );
+  has 'spacing' => ( is => 'rw', isa => 'Str', init_arg => '-spacing');
 
 }
 
@@ -183,7 +183,7 @@ package Spacing;
 
   has 'pairwises' => ( is => 'rw', isa => 'ArrayRef' );
   has 'default' => ( is => 'rw', isa => 'Str', init_arg => '-default' );
-  has 'break' => ( is => 'rw', isa => 'Str' );
+  has 'break' => ( is => 'rw', isa => 'Str', init_arg => '-break' );
 }
 
 package BreakStyle;
@@ -288,8 +288,8 @@ package Rule;
   use Moose::Util::TypeConstraints;
 
   # required fields
-  has 'importance' => ( is => 'rw', isa => 'Int', required => 1 );
-  has 'condition' => ( is => 'rw', isa => 'Str', required => 1 );
+  has 'importance' => ( is => 'rw', isa => 'Int', init_arg => '-importance', required => 1 );
+  has 'condition' => ( is => 'rw', isa => 'Str', init_arg => '-condition', required => 1 );
   has 'params' => ( is => 'rw', isa => 'HashRef', required => 1 );
 
   sub getRule {
