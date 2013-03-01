@@ -13,4 +13,6 @@ META.yml
 MYMETA.yml
 nytprof.out
 pm_to_blib
+data/
+tutorials/
 test.pl
