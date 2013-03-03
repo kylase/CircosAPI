@@ -1,0 +1,1 @@
+{"base":{"karyotype":"hg19","chromosome_units":1000000,"chromosomes_display_default":"yes"},"image":{"dir":".","file":"circos.png","png":"yes","svg":"yes","radius":"1500p","angle_offset":-90,"background":"white","angle_orientation":"clockwise","auto_alpha_colors":"yes","auto_alpha_steps":5},"ideogram":{"show":"yes","fill":"yes","label_font":"default"}}

@@ -1,0 +1,26 @@
+{
+   "ideogram" : {
+      "fill" : "yes",
+      "show" : "yes",
+      "radius" : "0.9r",
+      "label_font" : "default",
+      "thickness" : "15p"
+   },
+   "base" : {
+      "karyotype" : "hg19",
+      "chromosome_units" : 1000000,
+      "chromosomes_display_default" : "yes"
+   },
+   "image" : {
+      "png" : "yes",
+      "radius" : "1500p",
+      "background" : "white",
+      "file" : "circos.png",
+      "dir" : ".",
+      "angle_offset" : -90,
+      "auto_alpha_steps" : 5,
+      "auto_alpha_colors" : "yes",
+      "svg" : "yes",
+      "angle_orientation" : "clockwise"
+   }
+}

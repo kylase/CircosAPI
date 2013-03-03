@@ -24,7 +24,7 @@ package CObject;
         }
       } else {
         if ( ref $v eq "" ) {
-          $string .= "$k = $v\n" if ( defined($v) && min(map { $_ eq $k ? 0 : 1 } qw[id pair1 pair2]) );
+          $string .= lc $k . " = $v\n" if ( defined($v) && min(map { $_ eq $k ? 0 : 1 } qw[id pair1 pair2]) );
         } else {
           $string .= $v->getAttributesAsBlock;
         }     
@@ -127,10 +127,10 @@ package Ideogram;
   use Moose::Util::TypeConstraints;
 
   # required fields
-  has 'show' => ( is => 'rw', isa => enum([qw[ yes no ]]), init_arg => '-show', default => "yes" );
-  has 'radius' => ( is => 'rw', isa => 'Str', init_arg => '-radius', required => 1 );
-  has 'thickness' => ( is => 'rw', isa => 'Str', init_arg => '-thickness', required => 1 );
-  has 'fill' => ( is => 'rw', isa => 'Str', init_arg => '-fill', required => 1, default => "yes" );
+  has 'show' => ( is => 'rw', isa => enum([qw[ yes no ]]), init_arg => 'show', default => "yes" );
+  has 'radius' => ( is => 'rw', isa => 'Str', init_arg => 'radius', required => 1 );
+  has 'thickness' => ( is => 'rw', isa => 'Str', init_arg => 'thickness', required => 1 );
+  has 'fill' => ( is => 'rw', isa => 'Str', init_arg => 'fill', required => 1, default => "yes" );
 
   has 'stroke_color' => ( is => 'rw', isa => 'Str', init_arg => '-stroke_color' );
   has 'stroke_thickness' => ( is => 'rw', isa => 'Str', init_arg => '-stroke_thickness' );
