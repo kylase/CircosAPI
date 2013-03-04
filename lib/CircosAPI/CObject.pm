@@ -19,16 +19,18 @@ package CObject;
 
     while ( my ($k, $v) = each %$hash ) {
       if ( ref $v eq 'ARRAY' ) {
+        $string .= "<$k>\n";
         foreach (@$v) {
           $string .= $_->getAttributesAsBlock;
         }
+        $string .= "</$k>\n\n";
       } else {
         if ( ref $v eq "" ) {
           if ($k eq "color" or $k eq "housekeeping") {
             # For color and housekeeping blocks
               $string .= "$v\n" ;
             } else {
-              $string .= lc $k . " = $v\n" if ( defined($v) && min(map { $_ eq $k ? 0 : 1 } qw[id pair1 pair2]) );
+              $string .= ( lc($k) eq 't' ? 'type' : $k ) . " = $v\n" if ( defined($v) && min(map { $_ eq $k ? 0 : 1 } qw[id pair1 pair2]) );
             }
         } else {
           $string .= $v->getAttributesAsBlock;
@@ -52,13 +54,13 @@ package CObject;
       $string .= "<$class_name $self->{pair1},$self->{pair2}" if defined $self->{pair2};
       $string .= "<$class_name $self->{pair1}" if !(defined $self->{pair2});
     } elsif ( $class_name eq 'breakstyle' ) {
-      $string .= "\n<$class_name $self->{id}>\n" if $class_name ne "base";
+      $string .= "<$class_name $self->{id}>\n" if $class_name ne "base";
     } else {
-      $string .= "\n<$class_name>\n" if $class_name ne "base";
+      $string .= "<$class_name>\n" if $class_name ne "base";
     }
 
     $string .= $self->getAttributesAsString;
-    $string .= "</$class_name>\n" if $class_name ne "base";
+    $string .= "</$class_name>\n\n" if $class_name ne "base";
 
     return $string; 
   }
@@ -74,9 +76,7 @@ package DataTrack;
 
   sub addRule {
     my $self = shift;
-    my $rule = shift;
-
-    $self->{rules}->push($rule);
+    push @{ $self->{rules} }, shift;
   }
 }
 
@@ -302,19 +302,7 @@ package Rule;
   # required fields
   has 'importance' => ( is => 'rw', isa => 'Int', init_arg => 'importance', required => 1 );
   has 'condition' => ( is => 'rw', isa => 'Str', init_arg => 'condition', required => 1 );
-  has 'params' => ( is => 'rw', isa => 'HashRef', required => 1 );
-
-  sub getRule {
-    my $self = shift;
-    my $hash = $self->{params};
-    my $string = "";
-
-    while ( my ( $k, $v ) = each %$hash ) {
-      $string .= "$k = $v\n";
-    }
-
-    return $string;
-  }
+  has 'params' => ( is => 'rw', isa => 'HashRef');
 }
 
 1;

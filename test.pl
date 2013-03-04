@@ -2,24 +2,14 @@
 use strict;
 use warnings;
 use lib::CircosAPI;
-use JSON::PP;
 use Data::Dumper;
-use String::Util qw(trim);
 
-open my $fh, 'lib/CircosAPI/default_pretty.json' or die $!;
+my $b = Base->new(karyotype => 'hg19');
+my $c = CircosAPI->new(base => $b);
 
-my $json = JSON::PP->new;
-my $jsonStream = "";
-while (<$fh>) {
-  chomp;
-  $jsonStream .= trim($_);
-}
-
-my $defaults_perl = $json->decode($jsonStream);
-# print Dumper($defaults_perl->{ideogram});
-close($fh);
-
-my $id = Ideogram->new($defaults_perl->{ideogram});
-my $c = CircosAPI->new(-ideogram => $id);
+my $p = Plot->new(file => '/data/data.txt', r1 => '0.99r', r0 => '0.95r', t => 'scatter');
+$p->addRule(Rule->new(importance => 100, condition => 'cond1'));
+$c->addPlot($p);
+$c->addPlot($p);
 
 print $c->compile;
