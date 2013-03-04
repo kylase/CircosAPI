@@ -1,0 +1,11 @@
+{
+  "hg19" : "data/karyotype/karyotype.human.hg19.txt",
+  "hg18" : "data/karyotype/karyotype.human.hg18.txt",
+  "hg17" : "data/karyotype/karyotype.human.hg17.txt",
+  "hg16" : "data/karyotype/karyotype.human.hg16.txt",
+  "mm9" : "data/karyotype/karyotype.mouse.mm9.txt",
+  "rn4" : "data/karyotype/karyotype.rat.rn4.txt",
+  "yeast" : "data/karyotype/karyotype.yeast.txt",
+  "dm3-lowres" : "data/karyotype/karyotype.drosophila.lowres.dm3.txt",
+  "dm3-hires" : "data/karyotype/karyotype.drosophila.hires.dm3.txt"
+}

@@ -24,7 +24,12 @@ package CObject;
         }
       } else {
         if ( ref $v eq "" ) {
-          $string .= lc $k . " = $v\n" if ( defined($v) && min(map { $_ eq $k ? 0 : 1 } qw[id pair1 pair2]) );
+          if ($k eq "color" or $k eq "housekeeping") {
+            # For color and housekeeping blocks
+              $string .= "$v\n" ;
+            } else {
+              $string .= lc $k . " = $v\n" if ( defined($v) && min(map { $_ eq $k ? 0 : 1 } qw[id pair1 pair2]) );
+            }
         } else {
           $string .= $v->getAttributesAsBlock;
         }     
@@ -64,7 +69,7 @@ package DataTrack;
   use Moose;
   extends 'CObject';
   
-  has 'file' => ( is => 'rw', isa => 'Str', init_arg => '-file', required => 1 );
+  has 'file' => ( is => 'rw', isa => 'Str', init_arg => 'file', required => 1 );
   has 'rules' => ( is  => 'rw', isa => 'ArrayRef' );
 
   sub addRule {
@@ -80,20 +85,27 @@ package DataTrack;
 package Base;
 {
   use Moose;
+  use JSON::PP;
+  use String::Util qw(trim);
+
   extends 'CObject';
 
   use Moose::Util::TypeConstraints;
 
-  has 'karyotype' => ( is => 'rw', isa => 'Str', 
-                      initializer => sub {
+  has 'karyotype' => ( is => 'rw', isa => 'Str', init_arg => 'karyotype', initializer => sub {
                         my ($self, $value, $set, $attr) = @_;
-                        if ($value eq 'hg19') {
-                          $set->('data/karyotype/karyotype.human.txt');
-                        }
-                      }, 
-                      init_arg => '-karyotype');
-  has 'chromosome_units' => ( is => 'rw', isa => 'Int', init_arg => '-units', default => 1000000 );
-  has 'chromosomes' => ( is => 'rw', isa => 'Str', init_arg => '-chromosomes');
+                        open my $fh,  'lib/CircosAPI/karyotypes.json' or die $!;
+                        my $json = JSON::PP->new;
+                        my $stream = "";
+                        while (<$fh>) {
+                          chomp;
+                          $stream .= trim($_);
+                        } 
+                        my $karyotypes = $json->decode($stream);
+                        $set->($karyotypes->{$value});
+                      } );
+  has 'chromosome_units' => ( is => 'rw', isa => 'Int', init_arg => 'units', default => 1000000 );
+  has 'chromosomes' => ( is => 'rw', isa => 'Str', init_arg => 'chromosomes');
   has 'chromosomes_display_default' => ( is => 'rw', isa => enum([qw[ yes no ]]), default => 'yes' );
 }
 
@@ -109,12 +121,12 @@ package Image;
   has 'file' => ( is => 'rw', isa => 'Str', required => 1, default => 'circos.png' );
   has 'png' => ( is => 'rw', isa => enum([qw[ yes no ]]), required => 1, default => "yes" );
   has 'svg' => ( is => 'rw', isa => enum([qw[ yes no ]]), required => 1, default => "yes" );
-  has 'radius' => ( is => 'rw', isa => 'Str', required => 1, init_arg => '-radius', default => '1500p' );
+  has 'radius' => ( is => 'rw', isa => 'Str', required => 1, init_arg => 'radius', default => '1500p' );
   has 'angle_offset' => ( is => 'rw', isa => 'Int', required => 1, default => -90 );
   has 'background' => ( is => 'rw', isa => 'Str', required => 1, default => "white" );
 
   # Optional fields
-  has 'angle_orientation' => ( is => 'rw', isa => enum([qw[ clockwise counterclockwise ]]), default => 'counterclockwise' );
+  has 'angle_orientation' => ( is => 'rw', isa => enum([qw[ clockwise counterclockwise ]]) );
   has 'auto_alpha_colors' => ( is => 'rw', isa => enum([qw[ yes no ]]), default => 'yes' );
   has 'auto_alpha_steps' => ( is => 'rw', isa => 'Int', default => 5 );
 }
@@ -132,8 +144,8 @@ package Ideogram;
   has 'thickness' => ( is => 'rw', isa => 'Str', init_arg => 'thickness', required => 1 );
   has 'fill' => ( is => 'rw', isa => 'Str', init_arg => 'fill', required => 1, default => "yes" );
 
-  has 'stroke_color' => ( is => 'rw', isa => 'Str', init_arg => '-stroke_color' );
-  has 'stroke_thickness' => ( is => 'rw', isa => 'Str', init_arg => '-stroke_thickness' );
+  has 'stroke_color' => ( is => 'rw', isa => 'Str', init_arg => 'stroke_color' );
+  has 'stroke_thickness' => ( is => 'rw', isa => 'Str', init_arg => 'stroke_thickness' );
   
   # Cytogenetic Bands
   has 'show_bands' => ( is => 'rw', isa => enum([qw[ yes no ]]) );
@@ -157,8 +169,8 @@ package Ideogram;
   has 'axis_break_style' => ( is => 'rw', isa => enum([qw[ 1 2 ]]));
   has 'axis_break_at_edge' => ( is => 'rw', isa => enum([qw[ yes no ]]) );
 
-  has 'spacing' => ( is => 'rw', isa => 'Spacing', init_arg => '-spacing' );
-  has 'break_style' => ( is => 'rw', isa => 'ArrayRef', init_arg => '-break_style' );
+  has 'spacing' => ( is => 'rw', isa => 'Spacing', init_arg => 'spacing' );
+  has 'break_style' => ( is => 'rw', isa => 'ArrayRef', init_arg => 'break_style' );
 }
 
 package Pairwise;
@@ -168,9 +180,9 @@ package Pairwise;
 
   use Moose::Util::TypeConstraints;
 
-  has 'pair1' => ( is => 'rw', isa => 'Str', init_arg => '-pair1' );
-  has 'pair2' => ( is => 'rw', isa => 'Str', init_arg => '-pair2' );
-  has 'spacing' => ( is => 'rw', isa => 'Str', init_arg => '-spacing');
+  has 'pair1' => ( is => 'rw', isa => 'Str', init_arg => 'pair1' );
+  has 'pair2' => ( is => 'rw', isa => 'Str', init_arg => 'pair2' );
+  has 'spacing' => ( is => 'rw', isa => 'Str', init_arg => 'spacing');
 
 }
 
@@ -182,8 +194,8 @@ package Spacing;
   use Moose::Util::TypeConstraints;
 
   has 'pairwises' => ( is => 'rw', isa => 'ArrayRef' );
-  has 'default' => ( is => 'rw', isa => 'Str', init_arg => '-default' );
-  has 'break' => ( is => 'rw', isa => 'Str', init_arg => '-break' );
+  has 'default' => ( is => 'rw', isa => 'Str', init_arg => 'default' );
+  has 'break' => ( is => 'rw', isa => 'Str', init_arg => 'break' );
 }
 
 package BreakStyle;
@@ -193,11 +205,11 @@ package BreakStyle;
 
   use Moose::Util::TypeConstraints;
 
-  has 'id' => ( is => 'rw', isa => 'Int', init_arg => '-id', required => 1 );
-  has 'stroke_color' => ( is => 'rw', isa => 'Str', init_arg => '-stroke_color' );
-  has 'stroke_thickness' => ( is => 'rw', isa => 'Str', init_arg => '-stroke_thickness' );
-  has 'thickness' => ( is => 'rw', isa => 'Str', init_arg => '-thickness' ); 
-  has 'fill_color'=> ( is => 'rw', isa => 'Str', init_arg => '-fill_color'); 
+  has 'id' => ( is => 'rw', isa => 'Int', init_arg => 'id', required => 1 );
+  has 'stroke_color' => ( is => 'rw', isa => 'Str', init_arg => 'stroke_color' );
+  has 'stroke_thickness' => ( is => 'rw', isa => 'Str', init_arg => 'stroke_thickness' );
+  has 'thickness' => ( is => 'rw', isa => 'Str', init_arg => 'thickness' ); 
+  has 'fill_color'=> ( is => 'rw', isa => 'Str', init_arg => 'fill_color'); 
 }
 
 package Plot;
@@ -208,30 +220,30 @@ package Plot;
   use Moose::Util::TypeConstraints;
 
 # required fields
-  has 't' => ( is => 'rw', isa => enum([qw[ scatter line histogram tile heatmap text connector ]]), required => 1 );
+  has 't' => ( is => 'rw', isa => enum( [qw[ scatter line histogram tile heatmap text connector ]]), required => 1 );
   has 'r0' => ( is => 'rw', isa => 'Str', required => 1 );
   has 'r1' => ( is => 'rw', isa => 'Str', required => 1 );
 
 # optional fields
   has 'min' => ( is => 'rw', isa => 'Num' );
   has 'max' => ( is => 'rw', isa => 'Num' );
-  has 'orientation' => ( is => 'rw', isa => enum([qw[ in out ]]) );
+  has 'orientation' => ( is => 'rw', isa => enum( [qw[ in out ]]) );
 
-  has 'background' => ( is => 'rw', isa => enum([qw[ yes no ]]), default => "no" );
+  has 'background' => ( is => 'rw', isa => enum( [qw[ yes no ]]), default => "no" );
   has 'background_color' => ( is => 'rw', isa => 'Str' );
   has 'background_stroke_color' => ( is => 'rw', isa => 'Str' );
   has 'background_stroke_thickness' => ( is => 'rw', isa => 'Num' );
 
-  has 'axis' => ( is => 'rw', isa => enum([qw[ yes no ]]), default => "no" );
+  has 'axis' => ( is => 'rw', isa => enum( [qw[ yes no ]]), default => "no" );
   has 'axis_color' => ( is => 'rw', isa => 'Str' );
   has 'axis_thickness' => ( is => 'rw', isa => 'Num' );
   has 'axis_spacing' => ( is => 'rw', isa => 'Num' );
 
   has 'min_value_change' => ( is => 'rw', isa => 'Num' );
-  has 'skip_run' => ( is => 'rw', isa => enum([qw[ yes no ]]), default => "no" );
+  has 'skip_run' => ( is => 'rw', isa => enum( [qw[ yes no ]]), default => "no" );
   has 'z' => ( is => 'rw', isa => 'Num' );
 
-  has 'flow' => ( is => 'rw', isa => enum([qw[ yes no ]]), default => "no" );
+  has 'flow' => ( is => 'rw', isa => enum( [qw[ yes no ]]), default => "no" );
   has 'scale_log_base' => ( is => 'rw', isa => enum([qw[ yes no ]]), default => "no" );
 }
 
@@ -243,8 +255,8 @@ package Highlight;
   use Moose::Util::TypeConstraints;
 
 # required fields
-  has 'r0' => ( is => 'rw', isa => 'Str', init_arg => '-r0', required => 1 );
-  has 'r1' => ( is => 'rw', isa => 'Str', init_arg => '-r1', required => 1 );
+  has 'r0' => ( is => 'rw', isa => 'Str', init_arg => 'r0', required => 1 );
+  has 'r1' => ( is => 'rw', isa => 'Str', init_arg => 'r1', required => 1 );
 
 # optional fields
   has 'z' => ( is => 'rw', isa => 'Num' );
@@ -263,7 +275,7 @@ package Link;
   use Moose::Util::TypeConstraints;
 
 # required fields
-  has 'radius' => ( is => 'rw', isa => enum([qw[ scatter line histogram tile heatmap text connector ]])
+  has 'radius' => ( is => 'rw', isa => enum( [qw[ scatter line histogram tile heatmap text connector ]])
                   , required => 1 );
 
 # optional fields
@@ -272,12 +284,12 @@ package Link;
   has 'thickness' => ( is => 'rw', isa => 'Num' );
   has 'bezier_radius' => ( is => 'rw', isa => 'Num' );
   has 'bezier_radius_purity' => ( is => 'rw', isa => 'Num' );
-  has 'ribbon' => ( is => 'rw', isa => enum([qw[ yes no ]]), default => "no" );
+  has 'ribbon' => ( is => 'rw', isa => enum( [qw[ yes no ]]), default => "no" );
   has 'stroke_color' => ( is => 'rw', isa => 'Str' );
   has 'stroke_thickness' => ( is => 'rw', isa => 'Str' );
-  has 'twist' => ( is => 'rw', isa => enum([qw[ yes no ]]) );
-  has 'flat' => ( is => 'rw', isa => enum([qw[ yes no ]]) );
-  has 'crest' => ( is => 'rw', isa => enum([qw[ yes no ]]) );
+  has 'twist' => ( is => 'rw', isa => enum( [qw[ yes no ]]) );
+  has 'flat' => ( is => 'rw', isa => enum( [qw[ yes no ]]) );
+  has 'crest' => ( is => 'rw', isa => enum( [qw[ yes no ]]) );
 }
 
 package Rule;
@@ -288,8 +300,8 @@ package Rule;
   use Moose::Util::TypeConstraints;
 
   # required fields
-  has 'importance' => ( is => 'rw', isa => 'Int', init_arg => '-importance', required => 1 );
-  has 'condition' => ( is => 'rw', isa => 'Str', init_arg => '-condition', required => 1 );
+  has 'importance' => ( is => 'rw', isa => 'Int', init_arg => 'importance', required => 1 );
+  has 'condition' => ( is => 'rw', isa => 'Str', init_arg => 'condition', required => 1 );
   has 'params' => ( is => 'rw', isa => 'HashRef', required => 1 );
 
   sub getRule {
