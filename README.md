@@ -17,9 +17,7 @@ CircosAPI
 
 #### In your script.pl
     #!/usr/bin/perl
-
     use lib::CircosAPI;
-    
     my $c = CircosAPI->new();
 
 By instantiating a new instance of CircosAPI without any parameters will fill the minimal required parameters based on the defaults.json as found in lib/CircosAPI directory. You can change the defaults using a JSON file or pass a Hash to the blocks (shown below).
