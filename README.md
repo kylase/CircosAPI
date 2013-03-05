@@ -32,4 +32,4 @@ By instantiating a new instance of CircosAPI without any parameters will fill th
 #### In your shell
     $ perl script.pl > circos.conf | circos -conf circos.conf
 
-Please read the [API reference]() for more details on the parameters that you need to provide and the default value for some of the parameters if you do not provide them.
+Please read the [API reference](https://github.com/kylase/CircosAPI/wiki/API-Reference) for more details on the parameters that you need to provide and the default value for some of the parameters if you do not provide them.
