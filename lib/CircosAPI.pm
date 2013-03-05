@@ -15,6 +15,7 @@ has color => (is => 'rw', isa => 'Str', default => '<<include etc/colors_fonts_p
 has housekeeping => (is => 'rw', isa => 'Str', default => '<<include etc/housekeeping.conf>>');
 has plots => (is => 'rw', isa => 'ArrayRef');
 has highlights => (is => 'rw', isa => 'ArrayRef');
+has links => (is => 'rw', isa => 'ArrayRef');
 
 sub read_defaults {
   open my $fh,  'lib/CircosAPI/default_pretty.json' or die $!;
@@ -37,9 +38,25 @@ sub _build_default_ideogram {
   return Ideogram->new($defaults->{ideogram});
 }
 
+sub addHighlight {
+  my $self = shift;
+  $self->addTrack('highlights', shift);
+}
+
+sub addLink {
+  my $self = shift;
+  $self->addTrack('links', shift);
+}
+
 sub addPlot {
   my $self = shift;
-  push @{ $self->{plots} }, shift;
+  $self->addTrack('plots', shift);
+}
+
+sub addTrack {
+  my $self = shift;
+  my $trackType = shift;
+  push @{ $self->{$trackType} }, shift;
 }
 
 sub compile {

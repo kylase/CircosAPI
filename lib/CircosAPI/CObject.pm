@@ -302,7 +302,26 @@ package Rule;
   # required fields
   has 'importance' => ( is => 'rw', isa => 'Int', init_arg => 'importance', required => 1 );
   has 'condition' => ( is => 'rw', isa => 'Str', init_arg => 'condition', required => 1 );
-  has 'params' => ( is => 'rw', isa => 'HashRef');
+  has 'params' => ( is => 'rw', isa => 'HashRef' );
+
+  sub getAttributesAsString {
+    my $self = shift;
+    my $hash = $self->getContentAsHashRef;
+
+    my $string = "";
+
+    while ( my ($k, $v) = each %$hash ) {
+      if ( ref $v eq 'HASH' ) {
+        while ( my ($K, $V) = each %$v ) {
+          $string .= "$K = $V\n";
+        } 
+      } else {
+        $string .= "$k = $v\n";
+      }
+    }
+
+    return $string;
+  }
 }
 
 1;

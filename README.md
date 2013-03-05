@@ -13,6 +13,8 @@ CircosAPI
 * Programmatically generate your Circos graphics via Perl
 * Configure your own defaults for your pipelines via JSON
 
+Note: This module is not a syntax checker. You need to know how CIRCOS works.
+
 ## Getting Started
 
 #### In your script.pl
