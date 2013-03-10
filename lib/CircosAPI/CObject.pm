@@ -2,7 +2,8 @@ package CObject;
 {
   use Moose;
   use Moose::Util qw/find_meta get_all_attribute_values/;
-  use List::Util qw(min);
+  use List::Util qw(min max);
+  use Carp;
   use namespace::autoclean;
 
   sub getContentAsHashRef {
@@ -19,11 +20,11 @@ package CObject;
 
     while ( my ($k, $v) = each %$hash ) {
       if ( ref $v eq 'ARRAY' ) {
-        $string .= "<$k>\n";
+        $string .= "<$k>\n" if $k ne "tick";
         foreach (@$v) {
           $string .= $_->getAttributesAsBlock;
         }
-        $string .= "</$k>\n\n";
+        $string .= "</$k>\n\n" if $k ne "tick";
       } else {
         if ( ref $v eq "" ) {
           if ($k eq "color" or $k eq "housekeeping") {
@@ -63,6 +64,20 @@ package CObject;
     $string .= "</$class_name>\n\n" if $class_name ne "base";
 
     return $string; 
+  }
+
+  sub update {
+    my $self = shift;
+    my $meta = $self->meta;
+
+    my $hash = shift;
+    while (my ($k, $v) = each %$hash) {
+      if ( max(map { $k eq $_->name } $meta->get_all_attributes) ) {
+        $self->$k($v);
+      } else {
+        confess "$k is not a valid parameters\n";
+      }
+    }
   }
 }
 
@@ -104,9 +119,15 @@ package Base;
                         my $karyotypes = $json->decode($stream);
                         $set->($karyotypes->{$value});
                       } );
-  has 'chromosome_units' => ( is => 'rw', isa => 'Int', init_arg => 'units', default => 1000000 );
+  has 'chromosomes_units' => ( is => 'rw', isa => 'Int', init_arg => 'units', default => 1000000 );
   has 'chromosomes' => ( is => 'rw', isa => 'Str', init_arg => 'chromosomes');
   has 'chromosomes_display_default' => ( is => 'rw', isa => enum([qw[ yes no ]]), default => 'yes' );
+  has 'chromosomes_scale' => ( is => 'rw', isa => 'Str');
+  has 'chromosomes_reverse' => ( is => 'rw', isa => 'Str');
+  has 'chromosomes_color' => ( is => 'rw', isa => 'Str');
+  has 'chromosomes_radius' => ( is => 'rw', isa => 'Str');
+  has 'show_ticks' => ( is => 'rw', isa => enum([qw[ yes no ]]), default => 'yes' );
+  has 'show_tick_labels' => ( is => 'rw', isa => enum([qw[ yes no ]]), default => 'yes' );
 }
 
 package Image;
@@ -307,7 +328,6 @@ package Rule;
   sub getAttributesAsString {
     my $self = shift;
     my $hash = $self->getContentAsHashRef;
-
     my $string = "";
 
     while ( my ($k, $v) = each %$hash ) {
@@ -319,8 +339,48 @@ package Rule;
         $string .= "$k = $v\n";
       }
     }
-
     return $string;
+  }
+}
+
+package Tick;
+{
+  use Moose;
+  extends 'CObject';
+
+  use Moose::Util::TypeConstraints;
+
+  has 'spacing' => ( is => 'rw', isa => 'Str', init_arg => 'spacing', required => 1);
+  has 'chromosomes' => ( is => 'rw', isa => 'Str', init_arg => 'chromosomes');
+  has 'size' => ( is => 'rw', isa => 'Str', init_arg => 'size');
+  has 'thickness' => ( is => 'rw', isa => 'Str', init_arg => 'thickness');
+  has 'color' => ( is => 'rw', isa => 'Str', init_arg => 'color');
+  has 'show_label' => ( is => 'rw', isa => 'Str', init_arg => 'show_label');
+  has 'label_size' => ( is => 'rw', isa => 'Str', init_arg => 'label_size');
+  has 'label_offset' => ( is => 'rw', isa => 'Str', init_arg => 'label_offset');
+  has 'format' => ( is => 'rw', isa => 'Str', init_arg => 'format');
+
+}
+
+package Ticks;
+{
+  use Moose;
+  extends 'CObject';
+
+  use Moose::Util::TypeConstraints;
+
+  has 'radius' => ( is => 'rw', isa => 'Str', init_arg => 'radius', required => 1);
+  has 'multiplier' => ( is => 'rw', isa => 'Str', init_arg => 'multiplier');
+  has 'format' => ( is => 'rw', isa => 'Str', init_arg => 'format');
+  has 'thickness' => ( is => 'rw', isa => 'Str', init_arg => 'thickness');
+  has 'color' => ( is => 'rw', isa => 'Str', init_arg => 'color');
+  has 'tick' => ( is => 'rw', isa => 'ArrayRef' );
+
+  sub addTick {
+    my $self = shift;
+    while (my $t = shift) {
+      push @{ $self->{tick} }, $t;
+    } 
   }
 }
 

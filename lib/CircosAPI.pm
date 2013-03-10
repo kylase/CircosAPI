@@ -12,6 +12,7 @@ has base => (is => 'rw', isa => 'Base', init_arg => 'base');
 has ideogram => (is => 'rw', isa => 'Ideogram', init_arg => 'ideogram', builder => '_build_default_ideogram');
 has image => (is => 'rw', isa => 'Image', init_arg => 'image', builder => '_build_default_image');
 has color => (is => 'rw', isa => 'Str', default => '<<include etc/colors_fonts_patterns.conf>>');
+has ticks => (is => 'rw', isa => 'Ticks');
 has housekeeping => (is => 'rw', isa => 'Str', default => '<<include etc/housekeeping.conf>>');
 has plots => (is => 'rw', isa => 'ArrayRef');
 has highlights => (is => 'rw', isa => 'ArrayRef');
@@ -35,32 +36,40 @@ sub _build_default_image {
 
 sub _build_default_ideogram {
   my $defaults = read_defaults;
-  return Ideogram->new($defaults->{ideogram});
+  my $i = Ideogram->new($defaults->{ideogram});
+  $i->{spacing} = Spacing->new($defaults->{spacing});
+  return $i;
 }
 
 sub addHighlight {
   my $self = shift;
-  $self->addTrack('highlights', shift);
+  $self->addTrack('highlights', @_);
 }
 
 sub addLink {
   my $self = shift;
-  $self->addTrack('links', shift);
+  $self->addTrack('links', @_);
 }
 
 sub addPlot {
   my $self = shift;
-  $self->addTrack('plots', shift);
+  $self->addTrack('plots', @_);
 }
 
 sub addTrack {
   my $self = shift;
   my $trackType = shift;
-  push @{ $self->{$trackType} }, shift;
+  push @{ $self->{$trackType} }, @_;
 }
 
 sub compile {
   my $self = shift;
-  print $self->getAttributesAsString;
+  return $self->getAttributesAsString;
+}
+
+sub compileAsConf {
+  my $self = shift;
+  my $filename = shift;
+  
 }
 1;
