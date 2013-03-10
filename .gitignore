@@ -17,3 +17,6 @@ data/
 tutorials/
 circos/
 .DS_Store
+*.svg
+*.png
+*.conf
