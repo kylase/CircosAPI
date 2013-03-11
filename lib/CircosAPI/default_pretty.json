@@ -6,6 +6,9 @@
       "label_font" : "default",
       "thickness" : "15p"
    },
+   "spacing" : {
+      "default" : "0.005r"
+   },
    "base" : {
       "karyotype" : "hg19",
       "chromosome_units" : 1000000,
