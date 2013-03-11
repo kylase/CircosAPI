@@ -249,7 +249,7 @@ package Plot;
   has 'min' => ( is => 'rw', isa => 'Num' );
   has 'max' => ( is => 'rw', isa => 'Num' );
   has 'orientation' => ( is => 'rw', isa => enum( [qw[ in out ]]) );
-
+  has 'fill_color' => ( is => 'rw', isa => 'Str' );
   has 'background' => ( is => 'rw', isa => enum( [qw[ yes no ]]), default => "no" );
   has 'background_color' => ( is => 'rw', isa => 'Str' );
   has 'background_stroke_color' => ( is => 'rw', isa => 'Str' );
@@ -266,6 +266,8 @@ package Plot;
 
   has 'flow' => ( is => 'rw', isa => enum( [qw[ yes no ]]), default => "no" );
   has 'scale_log_base' => ( is => 'rw', isa => enum([qw[ yes no ]]), default => "no" );
+  has 'backgrounds' => ( is => 'rw', isa => 'ArrayRef' );
+  has 'axes' => ( is => 'rw', isa => 'ArrayRef' );
 }
 
 package Highlight;
@@ -296,14 +298,13 @@ package Link;
   use Moose::Util::TypeConstraints;
 
 # required fields
-  has 'radius' => ( is => 'rw', isa => enum( [qw[ scatter line histogram tile heatmap text connector ]])
-                  , required => 1 );
+  has 'radius' => ( is => 'rw', isa => 'Str', required => 1 );
 
 # optional fields
-  has 'record_limit' => ( is => 'rw', isa => 'Int', default => 1000);
+  has 'record_limit' => ( is => 'rw', isa => 'Int' );
   has 'color' => ( is => 'rw', isa => 'Str' );
   has 'thickness' => ( is => 'rw', isa => 'Num' );
-  has 'bezier_radius' => ( is => 'rw', isa => 'Num' );
+  has 'bezier_radius' => ( is => 'rw', isa => 'Str' );
   has 'bezier_radius_purity' => ( is => 'rw', isa => 'Num' );
   has 'ribbon' => ( is => 'rw', isa => enum( [qw[ yes no ]]), default => "no" );
   has 'stroke_color' => ( is => 'rw', isa => 'Str' );
@@ -321,7 +322,7 @@ package Rule;
   use Moose::Util::TypeConstraints;
 
   # required fields
-  has 'importance' => ( is => 'rw', isa => 'Int', init_arg => 'importance', required => 1 );
+  has 'importance' => ( is => 'rw', isa => 'Int', init_arg => 'importance' );
   has 'condition' => ( is => 'rw', isa => 'Str', init_arg => 'condition', required => 1 );
   has 'params' => ( is => 'rw', isa => 'HashRef' );
 
@@ -382,6 +383,31 @@ package Ticks;
       push @{ $self->{tick} }, $t;
     } 
   }
+}
+
+package Axis;
+{
+  use Moose;
+  extends 'CObject';
+
+  use Moose::Util::TypeConstraints;
+
+  has 'spacing' => ( is => 'rw', isa => 'Str', init_arg => 'spacing' );
+  has 'color' => ( is => 'rw', isa => 'Str', init_arg => 'color' );
+  has 'thickness' => ( is => 'rw', isa => 'Str', init_arg => 'thickness' );
+  has 'position' => ( is => 'rw', isa => 'Str', init_arg => 'position' );
+}
+
+package Background;
+{
+  use Moose;
+  extends 'CObject';
+
+  use Moose::Util::TypeConstraints;
+
+  has 'y0' => ( is => 'rw', isa => 'Str', init_arg => 'y0' );
+  has 'color' => ( is => 'rw', isa => 'Str', init_arg => 'color' );
+  has 'y1' => ( is => 'rw', isa => 'Str', init_arg => 'y1' );
 }
 
 1;
