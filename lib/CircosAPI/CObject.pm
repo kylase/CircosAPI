@@ -109,7 +109,7 @@ package Base;
 
   has 'karyotype' => ( is => 'rw', isa => 'Str', init_arg => 'karyotype', initializer => sub {
                         my ($self, $value, $set, $attr) = @_;
-                        open my $fh,  'lib/CircosAPI/karyotypes.json' or die $!;
+                        open my $fh,  'defaults/karyotypes.json' or die $!;
                         my $json = JSON::PP->new;
                         my $stream = "";
                         while (<$fh>) {
