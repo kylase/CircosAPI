@@ -19,7 +19,7 @@ has highlights => (is => 'rw', isa => 'ArrayRef');
 has links => (is => 'rw', isa => 'ArrayRef');
 
 sub read_defaults {
-  open my $fh,  'lib/CircosAPI/default_pretty.json' or die $!;
+  open my $fh,  'defaults/default_pretty.json' or die $!;
   my $json = JSON::PP->new;
   my $stream = "";
   while (<$fh>) {
