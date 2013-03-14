@@ -1,3 +1,8 @@
+---
+title: Hello, World!
+layout: default
+---
+
 This tutorial assumes you have used Circos before and you have programming experience. This tutorial is written with reference to the [Circos Quick Guide tutorial](http://circos.ca/documentation/tutorials/quick_guide/).
 
 # Hello World
@@ -15,7 +20,7 @@ You can set your default parameters for the following blocks in the JSON file (f
 * Ideogram > Spacing
 * Image
 
-{% highlights perl %}
+{% highlight perl %}
 #!/usr/bin/perl 
 use strict;
 use warnings;
@@ -25,7 +30,7 @@ use lib::CircosAPI;
 my $base_hg19 = Base->new(karyotype => 'hg19');
 my $c = CircosAPI->new(base => $base_hg19);
 print $c->compile;
-{% endhighlights %}
+{% endhighlight %}
 
 I recommend you to use single quote for the values as you may be passing values as valid Perl function during the course of making the visualization. 
 
@@ -37,7 +42,7 @@ CircosAPI allows you to set your default parameters to your configuration via a 
 
 The defaults.json looks like this.
 
-{% highlights javascript %}
+{% highlight javascript %}
 {
    "ideogram" : {
       "fill" : "yes",
@@ -67,7 +72,7 @@ The defaults.json looks like this.
       "angle_orientation" : "clockwise"
    }
 }
-{% endhighlights %}
+{% endhighlight %}
 
 So you can change the values in this file.
 
@@ -76,14 +81,14 @@ Circos parse the .conf file to generate the graphics. Therefore you need to conv
 
 However, you need to run this script in the command line.
 
-{% highlights bash %}
+{% highlight bash %}
 $ perl script.pl > circos.conf
-{% endhighlights %}
+{% endhighlight %}
 
 This command creates a .conf file based on the script.pl.
 
 After you get your .conf file, just do like what you have been doing with your .conf files previously.
 
-{% highlights bash %}
+{% highlight bash %}
 $ circos -conf circos.conf
-{% endhighlights %}
+{% endhighlight %}

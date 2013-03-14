@@ -1,5 +1,8 @@
-safe: true
-source: 
-destination: 
-lsi: false
+url: "http://localhost:4000"
+
+name: "circosapi"
+description: "circosapi for CIRCOS Data Visualization"
+
+markdown: rdiscount
+permalink: pretty
 pygments: true

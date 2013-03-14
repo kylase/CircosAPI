@@ -1,3 +1,8 @@
+---
+title: Installing Circos on OS X
+layout: default
+---
+
 ## Installing Circos on OS X
 
 Installing [Circos](http://www.circos.ca) on Mac is a problem for many new users. This guide provides you the step-by-step guide that helps you install Circos on your Mac (tested on OS X 10.8). 
@@ -12,9 +17,9 @@ After installing the Commmand Line Tools, you need to use **Terminal**, a comman
 
 In Terminal, you will see `computer-name:/ username$`. For brevity, I will omit everything before the `$`. Enter the command after `$`.
 
-{% highlights bash %}
+{% highlight bash %}
 $ ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
-{% endhighlights %}
+{% endhighlight %}
 
 Now you are set to use Homebrew.
 
@@ -28,22 +33,22 @@ Circos requires the following to work:
 5. gd
 
 You need to get freetype first because when you are installing gd, it will get libpng and jpeg for you automatically.
-{% highlights bash %}
+{% highlight bash %}
 $ brew install freetype
-{% endhighlights %}
+{% endhighlight %}
 After install freetype, you need to install gd with freetype.
 
-{% highlights bash %}
+{% highlight bash %}
 $ brew install gd --with-freetype
-{% endhighlights %}
+{% endhighlight %}
 
 ### Perl modules
 
 Install Perl modules is quite similar to what you have did so far. Perl has a module manager called CPAN. In order to install modules, you have to access CPAN.
 
-{% highlights bash %}
+{% highlight bash %}
 $ sudo cpan
-{% endhighlights %}
+{% endhighlight %}
 
 You will see the command line changed to `cpan[1]>`. Issue the following command (below) to install all the modules Circos needs, except GD.
 
@@ -51,32 +56,32 @@ You will see the command line changed to `cpan[1]>`. Issue the following command
 
 After installing the modules, you will need to download the perl GD module on your own and compile it. Exit CPAN by using `exit`.
 
-{% highlights bash %}
+{% highlight bash %}
 $ curl -O http://www.cpan.org/authors/id/L/LD/LDS/GD-2.49.tar.gz
-{% endhighlights %}
+{% endhighlight %}
 
 Extract and compile the content.
 
-{% highlights bash %}
+{% highlight bash %}
 $ tar xvfz GD-2.49.tar.gz
 $ cd GD-2.49
 $ make install
-{% endhighlights %}
+{% endhighlight %}
 
 ### Circos and CircosAPI
 
 Now you have everything you need for Circos. Let's download Circos!
 
-{% highlights bash %}
+{% highlight bash %}
 $ curl -0 http://circos.ca/distribution/circos-0.63-4.tgz
 $ tar xvf circos-0.63-4.tgz
 $ ln -s circos-0.63-4/bin/circos /usr/local/bin/circos
-{% endhighlights %}
+{% endhighlight %}
 
 Now when you type `circos` on your command line. You should see an error prompt by Circos, not `-bash: circos: command not found`.
 
 [CircosAPI](http://www.github.com/kylase/CircosAPI) is Perl module, but it is not available on CPAN. However, you can get it from github by running the following command.
 
-{% highlights bash %}
+{% highlight bash %}
 $ git clone git:github.com/kylase/CircosAPI
-{% endhighlights %}
+{% endhighlight %}

@@ -1,10 +1,15 @@
+---
+title: Histogram
+layout: default
+---
+
 # Histogram
 
 Reusablilty is a double-edged sword. It can help to save time but create more mess.
 
 `type` is a reserved keyword in Perl. We can't use `type` as a parameters. We use `t` in place of `type`. Don't worry, when it compiles, `t` will be converted to `type`.
 
-{% highlights perl %}
+{% highlight perl %}
 my $segdup_hist_params = { t => 'histogram', 
                 file => 'data/5/segdup.hs1234.hist.txt', 
                 r1 => '0.88r', r0 => '0.81r', 
@@ -21,6 +26,6 @@ $inner_plot_segdup_hist->addRule($rule_onhs1_noshow);
 $outer_plot_segdup_stacked->addRule($rule_onhs1_noshow);
 
 $c->addPlot($inner_plot_segdup_hist, $outer_plot_segdup_stacked);
-{% endhighlights %}
+{% endhighlight %}
 
 I hope by now you can understand how this API works just by reading the code. =)
