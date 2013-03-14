@@ -6,20 +6,20 @@ use lib::CircosAPI;
 # Tutorial
 # 1. Hello World
 
-my $b = Base->new(karyotype => 'hg19');
-my $c = CircosAPI->new(base => $b);
+my $base_hg19 = Base->new(karyotype => 'hg19');
+my $c = CircosAPI->new(base => $base_hg19);
 
 # print $c->compile;
 
 # 2. Ideogram Labels
-my $spacing_params = { default => "0.005r" };
-my $labels_params = { show_label => "yes", label_font => "default", label_radius => "1r + 75p", label_size => "30", label_parallel => "yes", spacing => Spacing->new($spacing_params) };
+my $spacing_params = { default => '0.005r' };
+my $labels_params = { show_label => 'yes', label_font => 'default', label_radius => '1r + 75p', label_size => '30', label_parallel => 'yes', spacing => Spacing->new($spacing_params) };
 
 $c->{ideogram}->update($labels_params);
-my $ticks = Ticks->new(radius => "1r", color => "black", thickness => "2p", multiplier => "1e-6", format => '%d');
-my $tick1 = Tick->new(spacing => "5u", size => "10p");
-my $tick2 = Tick->new(spacing => "25u", size => "15p", show_label => "yes", label_size => "20p", label_offset => "10p", format => '%d');
-$ticks->addTick($tick1, $tick2);
+my $ticks = Ticks->new(radius => '1r', color => 'black', thickness => '2p', multiplier => '1e-6', format => '%d');
+my $minor_tick = Tick->new(spacing => '5u', size => '10p');
+my $major_tick = Tick->new(spacing => '25u', size => '15p', show_label => 'yes', label_size => '20p', label_offset => '10p', format => '%d');
+$ticks->addTick($minor_tick, $major_tick);
 $c->ticks($ticks);
 
 # print $c->compile;
