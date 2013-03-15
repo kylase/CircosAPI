@@ -7,7 +7,7 @@ layout: default
 
 Reusablilty is a double-edged sword. It can help to save time but create more mess.
 
-`type` is a reserved keyword in Perl. We can't use `type` as a parameters. We use `t` in place of `type`. Don't worry, when it compiles, `t` will be converted to `type`.
+`type` is a reserved keyword in Perl. We can't use `type` as a parameter in Perl objects. Therefore, we use `t` in place of `type`. Don't worry, when it compiles, `t` will be converted to `type`.
 
 {% highlight perl %}
 my $segdup_hist_params = { t => 'histogram', 

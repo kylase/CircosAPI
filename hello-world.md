@@ -3,19 +3,23 @@ title: Hello, World!
 layout: default
 ---
 
-This tutorial assumes you have used Circos before and you have programming experience. This tutorial is written with reference to the [Circos Quick Guide tutorial](http://circos.ca/documentation/tutorials/quick_guide/).
-
 # Hello World
+
+This tutorial assumes you have used Circos before and you have programming experience. Experience in Perl is highly desired.
+
+This tutorial is written with reference to the [Circos Quick Guide tutorial](http://circos.ca/documentation/tutorials/quick_guide/).
 
 Every block in Circos configuration file is converted to an object in CircosAPI. The objects in CircosAPI contains the parameters you can put in the blocks. Therefore, there are subtle differences between the original configuration file and the configuration generated via this API.
 
 There are several methods you can create your configuration file using CircosAPI.
+
 1. Defaults
 2. Hash
 3. Passing individual parameters as arguments
 
-## Using Defaults
+### Using Defaults
 You can set your default parameters for the following blocks in the JSON file (found in /defaults):
+
 * Ideogram
 * Ideogram > Spacing
 * Image
@@ -32,7 +36,7 @@ my $c = CircosAPI->new(base => $base_hg19);
 print $c->compile;
 {% endhighlight %}
 
-I recommend you to use single quote for the values as you may be passing values as valid Perl function during the course of making the visualization. 
+I highly recommend you to use single quote for the values as you may be passing values as valid Perl function during the course of making the graphics. 
 
 Passing a value to only karyotype (`'hg19'`) for `Base` will initialize other parameters such as `chromosomes_unit` to their default values. Please refer to [Base](http://www.github.com/kylase/CircosAPI/wiki/) and [others](http://www.github.com/kylase/CircosAPI/wiki/) for their respective default values and the parameters that you are required to pass values to it.
 
@@ -76,8 +80,8 @@ The defaults.json looks like this.
 
 So you can change the values in this file.
 
-## Output
-Circos parse the .conf file to generate the graphics. Therefore you need to convert this Perl script to .conf. To do so, the last line in script.pl you saw above do just that. 
+### Output
+Circos parses the .conf file to generate the graphics. Therefore you need to convert this Perl script to .conf. To do so, the last line in script.pl you saw above do just that. 
 
 However, you need to run this script in the command line.
 

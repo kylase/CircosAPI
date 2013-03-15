@@ -11,12 +11,14 @@ When you are creating your instances different data tracks, rules, etc. I encour
 
 This is the 5th example which we are making links. So we should create a variable named `$segdup_link_black` to describe it as using the segdup data and the links are black. 
 
+### Creating link
 {% highlight perl %}
 my $segdup_link_black = Link->new(file => 'data/5/segdup.txt', radius => '0.8r', bezier_radius => '0r', color => 'black_a4', thickness => 2);
 {% endhighlight %}
 
 I understand it could become very verbose, but many text editors can help autocomplete your variable names. So you shouldn't worry. Check out [Sublime Text 2](http://www.sublimetext.com/2) if you do not have a great text editor.
 
+### Adding rules to link blocks
 Adding rules are simple. You can make either add the `rule` instance into the `link` instance directly.
 
 {% highlight perl %}
@@ -32,6 +34,8 @@ my $rule_tohs1 = Rule->new(condition => 'to(hs1)', params => { radius2 => '0.99r
 
 $segdup_link_black->addRule($rule_fromhs1, $rule_tohs1);
 {% endhighlight %}
+
+*A important note for rules*. As you might have noticed, the `rule` instance has `params`, which does not exist in the original Circos configuration. This `params` is a hash that you can specify any parameters that can be implemented in Circos' rule block. This is to allow flexibility. 
 
 Lastly, add the link to the CircosAPI instance.
 
