@@ -1,0 +1,32 @@
+<section id="Plot">
+  <h2>Plot <small>inherit from <a href="#DataTrack">DataTrack</a></small></h2>
+
+  <p><strong>Plot</strong> creates a <pre>&lt;plot&gt;...&lt;/plot&gt;</pre> block. Therefore you need to push this instance into <code>plots</code> of your <strong>CircosAPI</strong> instance via its <code>addPlot</code> method.</p>
+
+  {% highlight perl %}
+  # Example: $c is your CircosAPI instance, $p is your Highlight instance
+  $c->addPlot($p){% endhighlight %}
+
+  <h3>Attributes</h3>
+  <dl>
+    <dt><code>t</code></dt>
+    <dd>
+      <p>STRING</p>
+      <p><code>t</code> is actually <code>type</code> in Circos configuration. <code>type</code> is a keyword in Perl and therefore, it cannot be used as an attribute. Use <code>t</code> instead. However, it will be printed out as <code>type</code> when you compile the code.</p>
+    </dd>
+    <dt><code>file</code></dt>
+    <dd>
+      <p>STRING</p>
+    </dd>
+    <dt><code>rules</code></dt>
+    <dd>
+      <p>ARRAYREF</p>
+      <p>Push a <a href="#Rule"><strong>Rule</strong></a> instance into this array via the <code>addRule</code> method.</p>
+    </dd>
+  </dl>
+    
+  
+
+  <h3>Methods</h3>
+  Refer to <a href="#DataTrack"><strong>DataTrack</strong></a> for methods
+</section>

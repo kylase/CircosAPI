@@ -1,0 +1,25 @@
+<section id="DataTrack">
+  <h2>DataTrack <small></small></h2>
+
+  <p><strong>DataTrack</strong> is the parent class for all data tracks that have rules. <strong><a href="#Plot" title="Plot">Plot</a></strong>, <strong><a href="#Highlight" title="Highlight">Highlight</a></strong> and <strong><a href="#Link" title="Link">Link</a></strong> inherit from this class. Therefore you will not need to use this class explicitly. </p>
+
+  <h3>Attributes</h3>
+  <dl>
+    <dt><code>file</code></dt>
+    <dd>
+      <p>STRING</p>
+      <p>The path name of the data file associated with the data track</p>
+    </dd>
+    <dt><code>rules</code></dt>
+    <dd>
+      <p>ARRAYREF</p>
+      <p>An array that contains all the rules associated with the data track</p>
+    </dd>
+  </dl>
+
+  <h3>Methods</h3>
+  <dl>
+    <dt><code>addRule(array_of_Rule)</code></dt>
+    <dd>Add a <a href="#Rule" title="Rule"><strong>Rule</strong></a> instance or an array of <a href="#Rule" title="Rule"><strong>Rule</strong></a> instances into the <code>rules</code> attribute. Applicable for <a href="#Plot" title="Plot"><strong>Plot</strong></a>, <a href="#Highlight" title="Highlight"><strong>Highlight</strong></a> and <a href="#Link" title="Link"><strong>Link</strong></a> instances only</dd>
+  </dl>
+</section>

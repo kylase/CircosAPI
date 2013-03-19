@@ -1,0 +1,18 @@
+<section id="Rule">
+  <h2>Rule <small></small></h2>
+  <p><strong>Rule</strong> is one of the components of <strong><a href="#Plot" title="Plot">Plot</a></strong>, <strong><a href="#Link" title="Link">Link</a></strong> and <strong><a href="#Highlight" title="Highlight">Highlight</a></strong></p>
+  <p>It creates a <pre>&lt;rule&gt;...&lt;/rule&gt;</pre></p>
+  <p><strong>Rule</strong> can be added to any <strong><a href="#Plot" title="Plot">Plot</a></strong>, <strong><a href="#Link" title="Link">Link</a></strong> or <strong><a href="#Highlight" title="Highlight">Highlight</a></strong> via their method <code>addRule</code>
+  {% highlight perl %}
+  # Example: $t is your Plot instance, $r is your Rule instance
+  $t->addRule($r){% endhighlight %}
+  <h3>Attributes</h3>
+  <dl>
+    <dt><code>importance</code></dt>
+    <dd><p>INTEGER</p></dd>
+    <dt><code>condition</code></dt>
+    <dd><p>STRING</p></dd>
+    <dt><code>params</code></dt>
+    <dd><p>HASHREF</p><p><code>params</code> is a hash that stores all key-value pairs. Only the keys and their values will be printed out in the respective blocks; <code>params</code> will not be printed.</p></dd>
+  </dl>
+</section>

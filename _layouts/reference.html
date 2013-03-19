@@ -1,0 +1,45 @@
+{% include header_with_scrollspy.html %}
+
+<div class="row">
+  <div class="span3 ref-sidebar">
+    {% include reference_sidebar.html %}
+  </div>
+
+  <div class="span9 ref-content">
+    {{ content }}
+    <hr>
+    {% include ref/CObject.html %}
+    <hr>
+    {% include ref/DataTrack.html %}
+    <hr>
+    {% include ref/CircosAPI.html %}
+    <hr>
+    {% include ref/Base.html %}
+    <hr>
+    {% include ref/Image.html %}
+    <hr>
+    {% include ref/Ideogram.html %}
+    <hr>
+    {% include ref/Spacing.html %}
+    <hr>
+    {% include ref/Pairwise.html %}
+    <hr>
+    {% include ref/Ticks.html %}
+    <hr>
+    {% include ref/Tick.html %}
+    <hr>
+    {% include ref/Plot.html %}
+    <hr>
+    {% include ref/Link.html %}
+    <hr>
+    {% include ref/Highlight.html %}
+    <hr>
+    {% include ref/Rule.html %}
+<!--     <hr>
+    {% include ref/Axes.html %}
+    <hr>
+    {% include ref/Background.html %} -->
+  </div>
+</div>
+
+{% include footer.html %}

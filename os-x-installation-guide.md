@@ -9,7 +9,7 @@ Installing [Circos](http://www.circos.ca) on Mac is a problem for many new users
 
 ### Package Manager for OS X
 
-[Homebrew](http://mxcl.github.com/homebrew/) is all you need for your Unix adventure, whether you want to learn to code or just use it for Circos. It is basically a package manager that allows you to download libraries and software easily, analogous to Ubuntu's `apt-get`. It is actively updated via the git system, so it is good.
+[Homebrew](http://mxcl.github.com/homebrew/) is all you need for your Unix adventure, whether you want to learn to code or just use it for Circos. It is basically a package manager that allows you to download libraries and software easily, analogous to Ubuntu's `apt-get`. It is actively updated via the git system, so it is near the edge.
 
 First, you will need Xcode, so go to the App Store and download it. What you need is the **Command Line Tool**. After you are done with installing Xcode, start the app and go to the menu: **Xcode** > **Preferences**. Under the **Download** tab, you will see the iOS Simulators and Command Line Tools. Click the Install button inline with Command Line Tools.
 

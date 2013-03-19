@@ -1,0 +1,36 @@
+<section id="CircosAPI">
+  <h2>CircosAPI</h2>
+
+  <p>This is the class that hold all the blocks. You have to initialize this object in order to add other objects to it.</p>
+
+  <h3>Attributes</h3>
+  <dl>
+    <dt><code>base</code></dt>
+    <dd><p><strong><a href="#Base" title="Base">Base</a></strong></p></dd>
+    <dt><code>ideogram</code></dt>
+    <dd><p><strong><a href="#Ideogram" title="Ideogram">Ideogram</a></strong></p></dd>
+    <dt><code>image</code></dt>
+    <dd><p><strong><a href="#Image" title="Image">Image</a></strong></p></dd>
+    <dt><code>ticks</code></dt>
+    <dd><p><strong><a href="#Ticks" title="Ticks">Ticks</a></strong></p></dd>
+    <dt><code>plots</code></dt>
+    <dd><p>ARRAYREF</p></dd>
+    <dt><code>highlights</code></dt>
+    <dd><p>ARRAYREF</p></dd>
+    <dt><code>links</code></dt>
+    <dd><p>ARRAYREF</p></dd>
+  </dl>
+
+  <h3>Methods</h3>
+  <dl>
+    <dt><code>addPlot(Plot)</code></dt>
+    <dd><p>Add a <strong><a href="#Plot" title="Plot">Plot</a></strong> instance (or an array of <strong><a href="#Plot" title="Plot">Plot</a></strong>) into the <code>plots</code> array</p></dd>
+    <dt><code>addLink(Link)</code></dt>
+    <dd><p>Add a <strong><a href="#Link" title="Link">Link</a></strong> instance (or an array of <strong><a href="#Link" title="Link">Link</a></strong>)into the <code>links</code> array</p></dd>
+    <dt><code>addHighlight(Hightlight)</code></dt>
+    <dd><p>Add a <strong><a href="#Highlight" title="Highlight">Highlight</a></strong> instance (or an array of <strong><a href="#Highlight" title="Highlight">Highlight</a></strong>) into the <code>highlights</code> array</p></dd>
+    <dt><code>compile()</code></dt>
+    <dd><p>Takes no argument but return a STRING. This method converts the instances stored to Circos configuration file format as a string</p></dd>
+  </dl>
+  
+</section>
