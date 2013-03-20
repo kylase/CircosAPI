@@ -15,8 +15,6 @@ has ticks => ( is => 'rw', isa => 'Ticks', init_arg => 'ticks');
 has plots => ( is => 'rw', isa => 'ArrayRef', init_arg => 'plots');
 has highlights => ( is => 'rw', isa => 'ArrayRef', init_arg => 'highlights');
 has links => ( is => 'rw', isa => 'ArrayRef', init_arg => 'links');
-has backgrounds => ( is => 'rw', isa => 'Backgrounds', init_arg => 'backgrounds' );
-has axes => ( is => 'rw', isa => 'Axes', init_arg => 'axes' );
 # has color => ( is => 'rw', isa => 'Str', default => '<<include etc/colors_fonts_patterns.conf>>');
 # has housekeeping => ( is => 'rw', isa => 'Str', default => '<<include etc/housekeeping.conf>>');
 

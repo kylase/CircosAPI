@@ -96,6 +96,8 @@ package DataTrack;
   
   has 'file' => ( is => 'rw', isa => 'Str', init_arg => 'file', required => 1 );
   has 'rules' => ( is  => 'rw', isa => 'ArrayRef' );
+  has 'backgrounds' => ( is => 'rw', isa => 'Backgrounds', init_arg => 'backgrounds' );
+  has 'axes' => ( is => 'rw', isa => 'Axes', init_arg => 'axes' );
 
   sub addRule {
     my $self = shift;
@@ -275,8 +277,6 @@ package Plot;
 
   has 'flow' => ( is => 'rw', isa => enum( [qw[ yes no ]]), default => "no" );
   has 'scale_log_base' => ( is => 'rw', isa => enum([qw[ yes no ]]), default => "no" );
-  has 'backgrounds' => ( is => 'rw', isa => 'ArrayRef' );
-  has 'axes' => ( is => 'rw', isa => 'ArrayRef' );
 }
 
 package Highlight;
