@@ -25,6 +25,12 @@ package CObject;
           $string .= $_->getAttributesAsBlock;
         }
         $string .= "</$k>\n\n" if !in($k, \@IGNORED_BLOCKS);
+      } elsif ( ref $v eq 'HASH' ) {
+        $string .= "<$k>\n";
+        while ( my ($K, $V) = each %$v ) {
+          $string .= "$K = $V\n"; 
+        }
+        $string .= "</$k>\n\n"; 
       } else {
         if ( ref $v eq "" ) {
           if ($k eq "includes") {

@@ -15,8 +15,7 @@ has ticks => ( is => 'rw', isa => 'Ticks', init_arg => 'ticks');
 has plots => ( is => 'rw', isa => 'ArrayRef', init_arg => 'plots');
 has highlights => ( is => 'rw', isa => 'ArrayRef', init_arg => 'highlights');
 has links => ( is => 'rw', isa => 'ArrayRef', init_arg => 'links');
-# has color => ( is => 'rw', isa => 'Str', default => '<<include etc/colors_fonts_patterns.conf>>');
-# has housekeeping => ( is => 'rw', isa => 'Str', default => '<<include etc/housekeeping.conf>>');
+has colors => ( is => 'rw', isa => 'HashRef', init_arg => 'colors');
 
 sub read_defaults {
   open my $fh,  'defaults/default_pretty.json' or die $!;
