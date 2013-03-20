@@ -17,18 +17,17 @@ package CObject;
     my $hash = $self->getContentAsHashRef;
 
     my $string = "";
-
+    my @IGNORED_BLOCKS = qw(tick background axis);
     while ( my ($k, $v) = each %$hash ) {
       if ( ref $v eq 'ARRAY' ) {
-        $string .= "<$k>\n" if $k ne "tick";
+        $string .= "<$k>\n" if !in($k, \@IGNORED_BLOCKS);
         foreach (@$v) {
           $string .= $_->getAttributesAsBlock;
         }
-        $string .= "</$k>\n\n" if $k ne "tick";
+        $string .= "</$k>\n\n" if !in($k, \@IGNORED_BLOCKS);
       } else {
         if ( ref $v eq "" ) {
-          if ($k eq "color" or $k eq "housekeeping") {
-            # For color and housekeeping blocks
+          if ($k eq "includes") {
               $string .= "$v\n" ;
             } else {
               $string .= ( lc($k) eq 't' ? 'type' : $k ) . " = $v\n" if ( defined($v) && min(map { $_ eq $k ? 0 : 1 } qw[id pair1 pair2]) );
@@ -79,6 +78,15 @@ package CObject;
       }
     }
   }
+
+  sub in {
+    my $val = shift;
+    my $array = shift;
+    foreach(@$array) {
+      return 1 if $_ eq $val;
+    }
+    return 0;
+  }
 }
 
 package DataTrack;
@@ -128,6 +136,7 @@ package Base;
   has 'chromosomes_radius' => ( is => 'rw', isa => 'Str');
   has 'show_ticks' => ( is => 'rw', isa => enum([qw[ yes no ]]), default => 'yes' );
   has 'show_tick_labels' => ( is => 'rw', isa => enum([qw[ yes no ]]), default => 'yes' );
+  has 'includes' => ( is => 'ro', isa => 'Str', default => "<<include etc/colors_fonts_patterns.conf>>\n<<include etc/housekeeping.conf>>")
 }
 
 package Image;
@@ -240,12 +249,12 @@ package Plot;
 
   use Moose::Util::TypeConstraints;
 
-# required fields
+  # required fields
   has 't' => ( is => 'rw', isa => enum( [qw[ scatter line histogram tile heatmap text connector ]]), required => 1 );
   has 'r0' => ( is => 'rw', isa => 'Str', required => 1 );
   has 'r1' => ( is => 'rw', isa => 'Str', required => 1 );
 
-# optional fields
+  # optional fields
   has 'min' => ( is => 'rw', isa => 'Num' );
   has 'max' => ( is => 'rw', isa => 'Num' );
   has 'orientation' => ( is => 'rw', isa => enum( [qw[ in out ]]) );
@@ -277,11 +286,11 @@ package Highlight;
 
   use Moose::Util::TypeConstraints;
 
-# required fields
+  # required fields
   has 'r0' => ( is => 'rw', isa => 'Str', init_arg => 'r0', required => 1 );
   has 'r1' => ( is => 'rw', isa => 'Str', init_arg => 'r1', required => 1 );
 
-# optional fields
+  # optional fields
   has 'z' => ( is => 'rw', isa => 'Num' );
   has 'stroke_color' => ( is => 'rw', isa => 'Str' );
   has 'stroke_thickness' => ( is => 'rw', isa => 'Str' );
@@ -297,10 +306,10 @@ package Link;
 
   use Moose::Util::TypeConstraints;
 
-# required fields
+  # required fields
   has 'radius' => ( is => 'rw', isa => 'Str', required => 1 );
 
-# optional fields
+  # optional fields
   has 'record_limit' => ( is => 'rw', isa => 'Int' );
   has 'color' => ( is => 'rw', isa => 'Str' );
   has 'thickness' => ( is => 'rw', isa => 'Num' );
@@ -385,6 +394,28 @@ package Ticks;
   }
 }
 
+package Axes;
+{
+  use Moose;
+  extends 'CObject';
+
+  use Moose::Util::TypeConstraints;
+  has 'show' => ( is => 'rw', isa => 'Str', init_arg => 'show' );
+  has 'color' => ( is => 'rw', isa => 'Str', init_arg => 'color' );
+  has 'spacing' => ( is => 'rw', isa => 'Str', init_arg => 'spacing' );
+  has 'thickness' => ( is => 'rw', isa => 'Int', init_arg => 'thickness' );
+  has 'position' => ( is => 'rw', isa => 'Str', init_arg => 'position' );
+  has 'position_skip' => ( is => 'rw', isa => 'Str', init_arg => 'position_skip' );
+  has 'axis' => ( is => 'rw', isa => 'ArrayRef', init_arg => 'axis' );
+
+  sub addAxis {
+    my $self = shift;
+    while (my $t = shift) {
+      push @{ $self->{axis} }, $t;
+    } 
+  }
+}
+
 package Axis;
 {
   use Moose;
@@ -392,10 +423,29 @@ package Axis;
 
   use Moose::Util::TypeConstraints;
 
-  has 'spacing' => ( is => 'rw', isa => 'Str', init_arg => 'spacing' );
   has 'color' => ( is => 'rw', isa => 'Str', init_arg => 'color' );
-  has 'thickness' => ( is => 'rw', isa => 'Str', init_arg => 'thickness' );
+  has 'spacing' => ( is => 'rw', isa => 'Str', init_arg => 'spacing' );
+  has 'thickness' => ( is => 'rw', isa => 'Int', init_arg => 'thickness' );
   has 'position' => ( is => 'rw', isa => 'Str', init_arg => 'position' );
+  has 'position_skip' => ( is => 'rw', isa => 'Str', init_arg => 'position_skip' );
+}
+
+package Backgrounds;
+{
+  use Moose;
+  extends 'CObject';
+
+  use Moose::Util::TypeConstraints;
+
+  has 'show' => ( is => 'rw', isa => 'Str', init_arg => 'show' );
+  has 'background' => ( is => 'rw', isa => 'ArrayRef', init_arg => 'background' );
+
+  sub addBackground {
+    my $self = shift;
+    while (my $t = shift) {
+      push @{ $self->{background} }, $t;
+    } 
+  }
 }
 
 package Background;
@@ -408,6 +458,7 @@ package Background;
   has 'y0' => ( is => 'rw', isa => 'Str', init_arg => 'y0' );
   has 'color' => ( is => 'rw', isa => 'Str', init_arg => 'color' );
   has 'y1' => ( is => 'rw', isa => 'Str', init_arg => 'y1' );
+
 }
 
 1;

@@ -8,15 +8,17 @@ use lib::CircosAPI::CObject;
 
 extends 'CObject';
 
-has base => (is => 'rw', isa => 'Base', init_arg => 'base');
-has ideogram => (is => 'rw', isa => 'Ideogram', init_arg => 'ideogram', builder => '_build_default_ideogram');
-has image => (is => 'rw', isa => 'Image', init_arg => 'image', builder => '_build_default_image');
-has color => (is => 'rw', isa => 'Str', default => '<<include etc/colors_fonts_patterns.conf>>');
-has ticks => (is => 'rw', isa => 'Ticks');
-has housekeeping => (is => 'rw', isa => 'Str', default => '<<include etc/housekeeping.conf>>');
-has plots => (is => 'rw', isa => 'ArrayRef');
-has highlights => (is => 'rw', isa => 'ArrayRef');
-has links => (is => 'rw', isa => 'ArrayRef');
+has base => ( is => 'rw', isa => 'Base', init_arg => 'base');
+has ideogram => ( is => 'rw', isa => 'Ideogram', init_arg => 'ideogram', builder => '_build_default_ideogram');
+has image => ( is => 'rw', isa => 'Image', init_arg => 'image', builder => '_build_default_image');
+has ticks => ( is => 'rw', isa => 'Ticks', init_arg => 'ticks');
+has plots => ( is => 'rw', isa => 'ArrayRef', init_arg => 'plots');
+has highlights => ( is => 'rw', isa => 'ArrayRef', init_arg => 'highlights');
+has links => ( is => 'rw', isa => 'ArrayRef', init_arg => 'links');
+has backgrounds => ( is => 'rw', isa => 'Backgrounds', init_arg => 'backgrounds' );
+has axes => ( is => 'rw', isa => 'Axes', init_arg => 'axes' );
+# has color => ( is => 'rw', isa => 'Str', default => '<<include etc/colors_fonts_patterns.conf>>');
+# has housekeeping => ( is => 'rw', isa => 'Str', default => '<<include etc/housekeeping.conf>>');
 
 sub read_defaults {
   open my $fh,  'defaults/default_pretty.json' or die $!;
