@@ -1,7 +1,7 @@
-CircosAPI
-=========
+# [CircosAPI v0.6 beta](http://kylase.github.com/CircosAPI)
 
 ## APIs for [CIRCOS: Circular Genome Data Visualization](http://www.circos.ca)
+
 
 ### Requirements
 1. Perl > 5.12
@@ -17,19 +17,20 @@ Note: This module is not a syntax checker. You need to know how CIRCOS works.
 
 ## Getting Started
 
-#### In your script.pl
+### In your script.pl
     #!/usr/bin/perl
     use lib::CircosAPI;
     my $c = CircosAPI->new();
 
-By instantiating a new instance of CircosAPI without any parameters will fill the minimal required parameters based on the defaults.json as found in lib/CircosAPI directory. You can change the defaults using a JSON file or pass a Hash to the blocks (shown below).
+By instantiating a new instance of CircosAPI without any parameters will fill the minimal required parameters based on the defaults.json as found in **defaults** directory. You can change the defaults using a JSON file or pass a Hash to the blocks (shown below).
     
     my $b = Base->new(karyotype => 'hg19');
     my $id = Ideogram->new(radius => '0.95r', thickness => '20p');
     my $c = CircosAPI->new(base => $b, ideogram => $id);
     print $c->compile;
 
-#### In your shell
-    $ perl script.pl > circos.conf | circos -conf circos.conf
+### In your shell
+    $ perl script.pl > circos.conf
+    $ circos -conf circos.conf
 
-Please read the [API reference](https://github.com/kylase/CircosAPI/wiki/API-Reference) for more details on the parameters that you need to provide and the default value for some of the parameters if you do not provide them.
+Please read the [API reference](https://kylase.github.com/CircosAPI/reference) for more details on the parameters that you need to provide and the default value for some of the parameters if you do not provide them.
