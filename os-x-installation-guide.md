@@ -3,11 +3,11 @@ title: Installing Circos on OS X
 layout: default
 ---
 
-## Installing Circos on OS X
+# Installing Circos on OS X
 
 Installing [Circos](http://www.circos.ca) on Mac is a problem for many new users. This guide provides you the step-by-step guide that helps you install Circos on your Mac (tested on OS X 10.8). 
 
-### Package Manager for OS X
+## Package Manager for OS X
 
 [Homebrew](http://mxcl.github.com/homebrew/) is all you need for your Unix adventure, whether you want to learn to code or just use it for Circos. It is basically a package manager that allows you to download libraries and software easily, analogous to Ubuntu's `apt-get`. It is actively updated via the git system, so it is near the edge.
 
@@ -23,9 +23,10 @@ $ ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
 
 Now you are set to use Homebrew.
 
-### Install the prerequisites for Circos
+## Install the prerequisites for Circos
 
 Circos requires the following to work:
+
 1. Perl (OS X has Perl 5.12.4, so you do not need to do anything)
 2. libpng 
 3. jpeg
@@ -42,7 +43,7 @@ After install freetype, you need to install gd with freetype.
 $ brew install gd --with-freetype
 {% endhighlight %}
 
-### Perl modules
+## Perl modules
 
 Install Perl modules is quite similar to what you have did so far. Perl has a module manager called CPAN. In order to install modules, you have to access CPAN.
 
@@ -56,19 +57,19 @@ You will see the command line changed to `cpan[1]>`. Issue the following command
 
 After installing the modules, you will need to download the perl GD module on your own and compile it. Exit CPAN by using `exit`.
 
+Now let's download GD manually,
 {% highlight bash %}
 $ curl -O http://www.cpan.org/authors/id/L/LD/LDS/GD-2.49.tar.gz
 {% endhighlight %}
 
-Extract and compile the content.
-
+Extract and compile the content,
 {% highlight bash %}
 $ tar xvfz GD-2.49.tar.gz
 $ cd GD-2.49
 $ make install
 {% endhighlight %}
 
-### Circos and CircosAPI
+## Circos and CircosAPI
 
 Now you have everything you need for Circos. Let's download Circos!
 
@@ -85,3 +86,5 @@ Now when you type `circos` on your command line. You should see an error prompt 
 {% highlight bash %}
 $ git clone git:github.com/kylase/CircosAPI
 {% endhighlight %}
+
+QED isn't it?

@@ -3,7 +3,7 @@ title: Selection and Scale
 layout: default
 ---
 
-# Ideogram Labels
+# Selection and Scale
 
 The last method that we can use to change the values of the parameters is by accessing the parameters via its setter.
 

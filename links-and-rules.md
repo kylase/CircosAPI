@@ -9,7 +9,7 @@ We have come to the essence of Circos. Links.
 
 When you are creating your instances different data tracks, rules, etc. I encourage you to make your variable names descriptive so you can make sense of the code you are writing, allowing people to easily understand what you are doing and lastly, reusable instances (especially rules!).
 
-This is the 5th example which we are making links. So we should create a variable named `$segdup_link_black` to describe it as using the segdup data and the links are black. 
+This is the 4th example which we are making links. So we should create a variable named `$segdup_link_black` to describe the segdup data and the links are black. 
 
 ### Creating link
 {% highlight perl %}

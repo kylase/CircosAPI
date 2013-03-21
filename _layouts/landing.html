@@ -1,0 +1,26 @@
+{% include header.html %}
+
+{{ content }}
+  
+<section id="social">
+  <div class="row">
+    <p class="lead text-center">Synthesize your Circos graphics like a geek</p>
+    <div class="span2 offset4">
+      {% include github_repo_button.html %}
+    </div>
+    <div class= "span3">
+      {% include twitter_button.html %}
+    </div>
+  </div>
+</section>
+  
+<section id="download">
+  <div class="row">
+    <p class="text-center">
+      <a href="https://github.com/kylase/CircosAPI/archive/master.zip" title="Download from Github" class="btn btn-large btn-primary download">Download from Github</a>
+    </p>
+    <p class="text-center">Check out the <a href="/tutorials">tutorials</a></p>
+  </div>
+</section>
+
+{% include footer.html %}

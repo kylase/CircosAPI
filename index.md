@@ -1,4 +1,6 @@
 ---
 title: site.name
-layout: default
+layout: landing
 ---
+
+{% include masthead.html %}

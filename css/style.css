@@ -6,6 +6,38 @@
   margin-top: 15px;
 }
 
-strong {
-  font-weight: 600px;
+.example {
+  display: block;
+  -moz-transition: all .2s ease-in-out;
+  -webkit-transition: all .2s ease-in-out;
+  -ms-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+}
+
+.example:hover {
+  -moz-transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  -o-transform: scale(1.1);
+  transform: scale(1.1);
+  -webkit-box-shadow: 5px 5px 5px #ccc;
+  -moz-box-shadow: 5px 5px 5px #ccc;
+  box-shadow: 5px 5px 5px #ccc;
+}
+
+.download {
+  margin-top: 30px;
+  font-size: 40px;
+  line-height: 60px;
+}
+
+#social {
+  margin-top: 15px;
+}
+
+#between {
+  margin-top: 170px;
+  font-size: 60px;
+  text-align: center;
 }

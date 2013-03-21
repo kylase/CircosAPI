@@ -5,9 +5,9 @@ layout: default
 
 # Histogram
 
-Reusablilty is a double-edged sword. It can help to save time but create more mess.
+Reusablilty is a double-edged sword. It can help to save time but create more mess. In this example, we are going to reuse **Rule** for different plots.
 
-`type` is a reserved keyword in Perl. We can't use `type` as a parameter in Perl objects. Therefore, we use `t` in place of `type`. Don't worry, when it compiles, `t` will be converted to `type`.
+**An important note**. `type` is a reserved keyword in Perl. We can't use `type` as a parameter in Perl objects. Therefore, we use `t` in place of `type`. Don't worry, when it compiles, `t` will be converted to `type`.
 
 {% highlight perl %}
 my $segdup_hist_params = { t => 'histogram', 
@@ -22,6 +22,7 @@ my $outer_plot_segdup_stacked = Plot->new(t => 'histogram', file => 'data/5/segd
 
 my $rule_onhs1_noshow = Rule->new(condition => 'on(hs1)', params => { show => 'no' } );
 
+# Adding one rule to both plots
 $inner_plot_segdup_hist->addRule($rule_onhs1_noshow);
 $outer_plot_segdup_stacked->addRule($rule_onhs1_noshow);
 

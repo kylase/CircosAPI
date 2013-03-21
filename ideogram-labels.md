@@ -41,7 +41,6 @@ Now we have the global `ticks` block and the local `tick` blocks. We know that t
 
 {% highlight perl %}
 $ticks->addTick($minor_tick, $major_tick);
-$c->ticks($ticks);
 {% endhighlight %}
 
 Lastly, we need to add the `ticks` to our `CircosAPI` block.

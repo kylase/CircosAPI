@@ -4,18 +4,29 @@
   <p>This<code>Base</code> class writes all the attributes that are not enclosed in any blocks in the configuration files.</p>
 
   <h3>Attributes</h3>
-  <code>karyotype</code>
-  <code>chromosomes_units</code>
-  <code>chromosomes</code>
-  <code>chromosomes_display_default</code>
-  <code>chromosomes_scale</code>
-  <code>chromosomes_reverse</code>
-  <code>chromosomes_color</code>
-  <code>chromosomes_radius</code>
-  <code>show_ticks</code>
-  <code>show_tick_labels</code>
-
-  <h3>Methods</h3>
+  <dl>
+    <dt><code>karyotype</code> <span class="label label-important">required</span></dt>
+    <dd>
+      <p>STRING (hg16, hg17, hg18, hg19, mm9, rn4, yeast, dm3-lowres, dm3-hires)</p>
+      <p>The karyotype of your choice will be converted to the path as denoted in <strong>karyotypes.json</strong>. If you want to change the path of these karyotypes, you can look for <strong>karyotypes.json</strong> in the <strong>defaults</strong> directory.</p>
+    </dd>
+    <dt><code>chromosomes_units</code> <span class="label label-important">required</span></dt>
+    <dd><p>INTEGER [1000000]</p></dd>
+    <dt><code>chromosomes</code></dt>
+    <dd><p>STRING</p></dd>
+    <dt><code>chromosomes_display_default</code></dt>
+    <dd><p>BOOL [yes]</p></dd>
+    <dt><code>chromosomes_scale</code></dt>
+    <dd><p></p></dd>
+    <dt><code>chromosomes_reverse</code></dt>
+    <dd><p></p></dd>
+    <dt><code>chromosomes_color</code></dt>
+    <dd><p></p></dd>
+    <dt><code>show_ticks</code></dt>
+    <dd><p></p></dd>
+    <dt><code>show_tick_labels</code></dt>
+    <dd><p></p></dd>
+  </dl>
 </section>
 
 
