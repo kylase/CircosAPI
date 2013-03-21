@@ -1,8 +1,7 @@
-url: "http://localhost:4000"
+url: "http://kylase.github.com/CircosAPI"
 
 name: "circosapi"
 description: "circosapi for CIRCOS Data Visualization"
-tracking-id: "UA-39189505-1"
 
 markdown: rdiscount
 permalink: pretty
