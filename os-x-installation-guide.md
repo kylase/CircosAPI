@@ -66,6 +66,7 @@ Extract and compile the content,
 {% highlight bash %}
 $ tar xvfz GD-2.49.tar.gz
 $ cd GD-2.49
+$ perl Makefile.pl
 $ make install
 {% endhighlight %}
 
@@ -76,7 +77,7 @@ Now you have everything you need for Circos. Let's download Circos!
 {% highlight bash %}
 $ curl -0 http://circos.ca/distribution/circos-0.63-4.tgz
 $ tar xvf circos-0.63-4.tgz
-$ ln -s circos-0.63-4/bin/circos /usr/local/bin/circos
+$ sudo ln -s circos-0.63-4/bin/circos /usr/local/bin/circos
 {% endhighlight %}
 
 Now when you type `circos` on your command line. You should see an error prompt by Circos, not `-bash: circos: command not found`.
