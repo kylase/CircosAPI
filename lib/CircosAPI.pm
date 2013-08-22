@@ -335,6 +335,7 @@ package Plot;
   has 'max' => ( is => 'rw', isa => 'Num' );
   has 'orientation' => ( is => 'rw', isa => enum( [qw[ in out ]]) );
   has 'fill_color' => ( is => 'rw', isa => 'Str' );
+  has 'color' => ( is => 'rw', isa => 'Str' );
   has 'background' => ( is => 'rw', isa => enum( [qw[ yes no ]]), default => "no" );
   has 'background_color' => ( is => 'rw', isa => 'Str' );
   has 'background_stroke_color' => ( is => 'rw', isa => 'Str' );
@@ -351,6 +352,16 @@ package Plot;
 
   has 'flow' => ( is => 'rw', isa => enum( [qw[ yes no ]]), default => "no" );
   has 'scale_log_base' => ( is => 'rw', isa => enum([qw[ yes no ]]), default => "no" );
+
+  # Text Labels
+  has 'show_links' => ( is => 'rw', isa => enum( [qw[ yes no ]]), default => "no" );
+  has 'label_size' => ( is => 'rw', isa => 'Str' );
+  has 'label_rotate' => ( is => 'rw', isa => enum( [qw[ yes no ]]), default => "no" );
+  has 'label_font' => ( is => 'rw', isa => 'Str' );
+  
+  # Padding
+  has 'padding' => ( is => 'rw', isa => 'Str' );
+  has 'rpadding' => ( is => 'rw', isa => 'Str' );
 }
 
 package Highlight;
