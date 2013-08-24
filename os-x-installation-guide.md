@@ -75,7 +75,7 @@ $ make install
 Now you have everything you need for Circos. Let's download Circos!
 
 {% highlight bash %}
-$ curl -0 http://circos.ca/distribution/circos-0.64.tgz
+$ curl -O http://circos.ca/distribution/circos-0.64.tgz
 $ tar xvf circos-0.64.tgz
 $ sudo ln -s circos-0.64/bin/circos /usr/local/bin/circos
 {% endhighlight %}
