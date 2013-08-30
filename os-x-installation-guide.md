@@ -53,19 +53,19 @@ $ sudo cpan
 
 You will see the command line changed to `cpan[1]>`. Issue the following command (below) to install all the modules Circos needs, except GD.
 
-`cpan[1]> install Config::General Font::TTF List::MoreUtils Math::Bezier Math::VecStat Params::Validate Readonly Regexp::Common Set::IntSpan Text::Format`
+`cpan[1]> install Config::General Font::TTF List::MoreUtils Math::Bezier Math::VecStat Math::Round Params::Validate Readonly Regexp::Common Set::IntSpan Text::Format`
 
 After installing the modules, you will need to download the perl GD module on your own and compile it. Exit CPAN by using `exit`.
 
 Now let's download GD manually,
 {% highlight bash %}
-$ curl -O http://www.cpan.org/authors/id/L/LD/LDS/GD-2.49.tar.gz
+$ curl -O http://www.cpan.org/authors/id/L/LD/LDS/GD-2.50.tar.gz
 {% endhighlight %}
 
 Extract and compile the content,
 {% highlight bash %}
-$ tar xvfz GD-2.49.tar.gz
-$ cd GD-2.49
+$ tar xvfz GD-2.50.tar.gz
+$ cd GD-2.50
 $ perl Makefile.pl
 $ make install
 {% endhighlight %}
