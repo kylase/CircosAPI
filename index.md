@@ -1,5 +1,4 @@
 ---
-title: site.name
 layout: landing
 ---
 

@@ -1,8 +1,13 @@
 url: "http://kylase.github.com/CircosAPI"
 
-name: "circosapi"
-description: "circosapi for CIRCOS Data Visualization"
+name: "CircosAPI"
+description: "CircosAPI for CIRCOS Data Visualization"
 
 markdown: rdiscount
 permalink: pretty
 pygments: true
+
+analytics: "UA-39189505-1"
+
+circos-version: "0.64"
+circos-download-link: "http://circos.ca/distribution/circos-0.64.tgz"

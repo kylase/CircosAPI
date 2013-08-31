@@ -6,7 +6,11 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>{{ site.name }}</title>
+    {% if page.title %}
+        <title>{{ site.name }} | {{ page.title }}</title>
+    {% else %}
+        <title>{{ site.name }} </title>
+    {% endif %}
     <meta name="description" content="{{ site.description }}">
     <meta name="viewport" content="width=device-width">
 
@@ -38,6 +42,7 @@
                             <li><a href="{{ site.url }}/axes-and-backgrounds" title="Axes and Backgrounds">Tutorial 6: Axes and Backgrounds</a></li>
                             <li class="divider"></li>
                             <li><a href="{{ site.url }}/os-x-installation-guide">Install Circos on OS X</a></li>
+                            <li><a href="{{ site.url }}/circos-on-linux-virtual-machine">Circos on Virtual Machine</a></li>
                         </ul>
                     </li>
                     <li><a href="{{ site.url }}/reference">API Reference</a></li>
