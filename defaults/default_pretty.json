@@ -1,10 +1,9 @@
 {
    "ideogram" : {
       "fill" : "yes",
-      "show" : "yes",
-      "radius" : "0.9r",
+      "radius" : "0.90r",
       "label_font" : "default",
-      "thickness" : "15p"
+      "thickness" : "20p"
    },
    "spacing" : {
       "default" : "0.005r"
