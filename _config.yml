@@ -1,11 +1,11 @@
-url: "http://kylase.github.io/CircosAPI"
+url: "https://kylase.github.io/CircosAPI"
 
 name: "CircosAPI"
 description: "CircosAPI for CIRCOS Data Visualization"
 
-markdown: rdiscount
+markdown: kramdown
 permalink: pretty
-pygments: true
+highlighter: true
 
 analytics: "UA-39189505-1"
 
