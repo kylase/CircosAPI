@@ -5,7 +5,7 @@ description: "CircosAPI for CIRCOS Data Visualization"
 
 markdown: kramdown
 permalink: pretty
-highlighter: true
+highlighter: rouge
 
 analytics: "UA-39189505-1"
 
