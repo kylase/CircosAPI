@@ -25,21 +25,21 @@ We are going to use the [64-bit server version](http://www.ubuntu.com/download/s
 
 After you have obtained a copy of Ubuntu, create a new VM using Ubuntu 64-bit.
 
-![Initial Setup](/img/vm-2.png)
+![Initial Setup](CircosAPI/img/vm-2.png)
 
 You can set the amount of RAM and disk space you can spare for this VM. For the purpose of a guide, 512 MB or RAM and 8GB of disk space is allocated. The rest of the steps should be default options unless you want to store your VM in other location.
 
-![VM Memory Size](/img/vm-1.png) 
+![VM Memory Size](CircosAPI/img/vm-1.png)
 
-![VM Hard Disk](/img/vm-3.png)
+![VM Hard Disk](CircosAPI/img/vm-3.png)
 
 Next, by default the VM is a single-core VM. We should increase the number of CPU to 2 or more through the **Setting** window. If you want network connection to this VM, you can set the network adapter as Bridged Adapter in the Network tab.
 
-![Network](/img/vm-4.png)
+![Network](CircosAPI/img/vm-4.png)
 
 In the **Storage** tab, click on the disc in the **Attributes** column and browse the location where you downloaded your Ubuntu disc image and select the disc image.
 
-![Mounting Ubuntu](/img/vm-5.png)
+![Mounting Ubuntu](CircosAPI/img/vm-5.png)
 
 Now we are ready to boot up the VM by clicking on the **Start** button.
 
@@ -55,7 +55,7 @@ We know that Circos has a few dependencies such as Perl and GD.
 
 Perl is readily available on Ubuntu out of the box. What we need to do is to set up the Perl modules and GD for Circos.
 
-Just like [the OS X guide](/os-x-installation-guide), it is as simple as a few simple steps.
+Just like [the OS X guide](CircosAPI/os-x-installation-guide), it is as simple as a few simple steps.
 
 In order to install libgd and its dependencies,
 {% highlight bash %}
