@@ -9,15 +9,15 @@
   <script src="/CircosAPI/js/bootstrap.min.js"></script>
   <script>window.jQuery || document.write('<script src="/CircosAPI/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
 
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-39189505-1"></script>
   <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
-    ga('create', '{{ site.analytics }}', 'kylase.github.io');
-    ga('send', 'pageview');
-
+    gtag('config', 'UA-39189505-1');
   </script>
+
 </body>
 </html>
