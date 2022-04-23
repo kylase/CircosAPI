@@ -6,7 +6,11 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>{{ site.name }}</title>
+    {% if page.title %}
+        <title>{{ site.name }} | {{ page.title }}</title>
+    {% else %}
+        <title>{{ site.name }} </title>
+    {% endif %}
     <meta name="description" content="{{ site.description }}">
     <meta name="viewport" content="width=device-width">
 
@@ -17,6 +21,16 @@
     <link href="/CircosAPI/css/style.css" rel="stylesheet">
 
     <!--<script src="js/vendor/modernizr-2.6.2.min.js"></script>-->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-L7HSKBW37V"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-L7HSKBW37V');
+    </script>
 </head>
 <body data-spy="scroll" data-target=".ref-sidebar" data-offset="80">
     <div class="navbar navbar-fixed-top navbar-inverse">
